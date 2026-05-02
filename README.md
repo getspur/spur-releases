@@ -47,6 +47,8 @@ Whether you are just getting started or diving deep into Spur's advanced project
    *The Input Bar, Mentions (@), and the Universal Command Palette.*
 5. [**Issues & Planning**](./docs/04-issues-and-planning.md)
    *The Issue Browser, Plan Inspector, and Mermaid Dependency Graphs.*
+6. [**Configuration System**](./docs/05-configuration.md)
+   *Understanding and customizing `.spur/config.toml` for agents.*
 
 ## Issue Tracking & Feedback
 
