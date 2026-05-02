@@ -48,6 +48,12 @@ Whether you are just getting started or diving deep into Spur's advanced project
 5. [**Issues & Planning**](./docs/04-issues-and-planning.md)
    *The Issue Browser, Plan Inspector, and Mermaid Dependency Graphs.*
 
+## Issue Tracking & Feedback
+
+If you encounter a bug, have a feature request, or want to provide feedback, please use our GitHub Issues page:
+
+- [Report a Bug or Request a Feature](https://github.com/getspur/spur-releases/issues)
+
 ## License
 
 Spur is actively developed by the GetSpur team. 
