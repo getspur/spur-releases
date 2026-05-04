@@ -16,10 +16,6 @@ Instead of letting agents touch your main branch directly, Spur delegates tasks 
 
 ![Image: Spur TUI Dashboard showing the Agents Tree on the left, an active ReAct trace in the Activity Log on the right, and the protected-atom input bar at the bottom.](https://via.placeholder.com/800x450.png?text=Spur+TUI+Dashboard)
 
-<video src="doc/resources/spur-install-init.mp4" controls width="600">
-  Your browser does not support the video tag.
-</video>
-
 _The dashboard lets you monitor parallel ReAct traces, manage issues, and seamlessly switch between Vim/Emacs input modes._
 
 ---
@@ -95,6 +91,7 @@ spur init
 spur tui
 ```
 
+![spur-init](https://vimeo.com/1189052932?share=copy)
 
 When you run `spur init`, it automatically discovers agents installed on your `$PATH` (Claude Code, Aider, Codex, Gemini CLI) and sets them up in `.spur/config.toml`.
 
