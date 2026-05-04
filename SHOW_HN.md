@@ -14,7 +14,8 @@ Instead of letting agents touch your main branch directly, Spur delegates tasks 
 
 ### 📸 A Look at the TUI
 
-![Image: Spur TUI Dashboard showing the Agents Tree on the left, an active ReAct trace in the Activity Log on the right, and the protected-atom input bar at the bottom.](https://via.placeholder.com/800x450.png?text=Spur+TUI+Dashboard)
+
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/1189025066?h=b23bba16b9" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
 
 _The dashboard lets you monitor parallel ReAct traces, manage issues, and seamlessly switch between Vim/Emacs input modes._
 
