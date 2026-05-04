@@ -10,11 +10,11 @@ When you start Spur, you'll land on the **Dashboard**. This is your command cent
 2. **Activity Log (Right Panel):** A timeline of events, messages, and actions happening across your agents.
 3. **Input Bar (Bottom):** Your primary way to interact with the system, send messages, and execute commands.
 
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/1189052678?h=6e24a5aa18" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
+
 ### Dashboard Modes
 
 The Dashboard operates in two distinct modes to keep navigation separate from typing:
-
-> 🎥 **Video Placeholder:** [Demonstrate switching between Navigation Mode and Compose Mode using the Tab key, showing how the UI focus border shifts.]
 
 * **[NAV] Navigation Mode:** When the input bar has a gray border, your keystrokes control the application. You can scroll, switch panels, or jump to specific views.
 * **[INSERT] Compose Mode:** When the input bar has a cyan border, everything you type goes into the input field.
@@ -102,7 +102,7 @@ At the very top of the screen, you'll see the **Status Bar**. It provides a quic
 
 ## Help Overlay
 
-> 🎥 **Video Placeholder:** [Demonstrate pressing `?` to open the Help Overlay, scrolling through the shortcuts, and pressing `?` again to close it.]
+<div style="padding:75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1189075147?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="spur-help-function"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 
 If you ever forget a keybinding, press **`?`** to toggle the **Help Overlay**. It provides a comprehensive, scrollable list of all available shortcuts for the current view and mode. Press `?` or `Esc` to close it.
 
