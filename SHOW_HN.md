@@ -1,4 +1,4 @@
-# Show HN: Spur – A Rust TUI that orchestrates AI coding agents in parallel git worktrees
+# Show HN: Spur – A TUI hypervisor for AI coding agents (parallel git worktrees, Rust)
 
 **Issue in, PR out — across every agent.**
 
