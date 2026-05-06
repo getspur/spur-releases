@@ -32,6 +32,8 @@ When you ask Spur to execute an Epic, the "Brain" orchestrator (e.g., Claude Cod
 4. **Chroots:** The worker agent runs entirely inside this worktree.
 5. **G-Strict Merge:** Once the Brain (or you) approves the task, Spur extracts the diff, performs a deterministic topological merge to `Main`, and deletes the worktree.
 
+> See [Issues & Planning](https://github.com/getspur/spur-releases/blob/main/docs/04-issues-and-planning.md) for the Issue Browser, Plan Inspector, and DAG-driven execution UI in action.
+
 ---
 
 ## 🧠 Under the Hood (Architecture)
@@ -73,12 +75,11 @@ graph TD
 - **Pure Event Sourcing:** The TUI state (Lineage, Plan Inspector) is a pure projection of an NDJSON event stream (`EventFunnel`). Resuming a session is just a fast replay.
 - **Worktree Authority (Lease-Aware GC):** To prevent orphaned worktrees if the app crashes, we implemented a `WorktreeAuthority` that uses `fs4` advisory locks as cross-process liveness probes. It runs periodic background sweeps (15 min + jitter) to reap dead worktrees safely.
 - **Single-Attach Invariants:** We use kernel-level lockfiles (`.spur/sessions/<id>.lock`) to ensure you can't have two TUI windows sending prompts to the same brain session (split-brain).
-- **Peer Mailbox:** We've built an (opt-in) at-least-once delivery message router that allows parallel worker agents to communicate with each other during execution, backed by an in-memory ledger and stranded-message reconciler.
-- **Embedded Issue Store (no CLI hops):** Issue tracking links the `beads_rust` SQLite engine directly — we retired the `br` subprocess shellout entirely. Per-call latency dropped from ~50 ms (spawn + JSON roundtrip) to <1 ms. Cross-process correctness is a documented contract: N concurrent readers across any spur instances + one writer machine-wide, via OS flock on `.beads/.write.lock` plus SQLite WAL snapshot isolation, with jittered exponential backoff under contention. Multi-process integration tests pin the contract; full design in [`docs/spur-pm-beads-crate-architecture.md`](https://github.com/getspur/spur-releases/blob/main/docs/spur-pm-beads-crate-architecture.md).
+- **Embedded Issue Store:** Issue tracking links the BEADS SQLite engine directly Per-call latency dropped from ~50 ms (spawn + JSON roundtrip) to <1 ms. Cross-process correctness is a documented contract: N concurrent readers across any spur instances + one writer machine-wide, via OS flock on `.beads/.write.lock` plus SQLite WAL snapshot isolation, with jittered exponential backoff under contention. Multi-process integration tests pin the contract
 
 ## 🚀 Getting Started
 
-Spur operates locally in your repository, with issue tracking handled either by an embedded SQLite store (via the `beads_rust` crate — no external CLI required) or GitHub's REST API.
+Spur operates locally in your repository, with issue tracking handled either by an embedded SQLite store
 
 No signup required, run it directly in your repo via `npx`:
 
@@ -98,6 +99,13 @@ When you run `spur init`, it automatically discovers agents installed on your `$
 
 Type an issue into the input bar, hit Enter, and watch the Brain draw up a plan and spin up worktrees.
 
-**Documentation:** [github.com/getspur/spur-releases](https://github.com/getspur/spur-releases)
+**Documentation** ([github.com/getspur/spur-releases](https://github.com/getspur/spur-releases)):
+
+- [Getting Started](https://github.com/getspur/spur-releases/blob/main/docs/00-getting-started.md) — install, first run, the 60-second tour
+- [Core Navigation](https://github.com/getspur/spur-releases/blob/main/docs/01-core-navigation.md) — panes, focus, keybindings
+- [Session Management](https://github.com/getspur/spur-releases/blob/main/docs/02-session-management.md) — resuming, lineage, the event log
+- [Commands & Input](https://github.com/getspur/spur-releases/blob/main/docs/03-commands-and-input.md) — slash commands, prompt routing
+- [Issues & Planning](https://github.com/getspur/spur-releases/blob/main/docs/04-issues-and-planning.md) — Issue Browser, Plan Inspector, DAG execution
+- [Configuration](https://github.com/getspur/spur-releases/blob/main/docs/05-configuration.md) — `.spur/config.toml`, brains, fallbacks, permissions
 
 We'd love for the HN community to tear this apart, try out the worktree isolation, and tell us where the UX or the Rust architecture can be improved. I'll be hanging out in the comments all day to answer deep architectural or product questions!
