@@ -14,6 +14,10 @@ Instead of letting agents touch your main branch directly, Spur delegates tasks 
 
 ### A look at the TUI
 
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/1189738065?h=8ed86de0d8" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
+
+Easy to worker agents delegate
+
 <iframe title="vimeo-player" src="https://player.vimeo.com/video/1189025066?h=b23bba16b9" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
 
 ---
