@@ -12,15 +12,13 @@ Instead of letting agents touch your main branch directly, Spur delegates tasks 
 
 ---
 
-### 📸 A Look at the TUI
-
-<iframe title="vimeo-player" src="https://player.vimeo.com/video/1189025066?h=b23bba16b9" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
+### A look at the TUI
 
 <iframe title="vimeo-player" src="https://player.vimeo.com/video/1189025066?h=b23bba16b9" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
 
 ---
 
-## ⚡ The Killer Feature: Worktree Isolation & G-Strict Merging
+## Worktree isolation, in five steps
 
 The biggest challenge with autonomous agents is state management. Spur solves this with what we call **Worktree Isolation Discipline**.
 
@@ -36,13 +34,13 @@ When you ask Spur to execute an Epic, the "Brain" orchestrator (e.g., Claude Cod
 
 ---
 
-## 🧠 Under the Hood (Architecture)
+## How it works
 
-Spur isn't just a pretty UI wrapper; it's a heavy-duty orchestration engine . We had to solve complex concurrency and state problems to make multi-agent orchestration safe.
+Spur isn't a UI wrapper; it's an orchestration engine built to solve the multi-agent concurrency and state-management problems that make naive parallel agent execution dangerous.
 
-### Simplified System Flow
+### System flow
 
-Here is the beautifully simple workflow Spur enables—abstracting away the complex DAG reconcilers and event buses so you can focus on building:
+The workflow Spur enables — abstracting away the DAG reconcilers and event buses so you can focus on building:
 
 ```mermaid
 graph TD
@@ -76,11 +74,11 @@ graph TD
 - **Brain → Workers via a Topological DAG (`graph_engine`):** Every plan is a first-class directed graph with typed edges (`blocks`, `parent-child`, `conditional-blocks`, `waits-for`). The brain agent decomposes an Epic into this DAG; the petgraph-backed `graph_engine` module performs cycle detection at submit time, topological ordering, ready-set computation, and content-hash change detection. The reconciler dispatches *every* dependency-satisfied task in parallel onto independent workers — not one-at-a-time. When tasks land, **G-Strict merging** folds approved diffs back into `main` in topological order, so the merge sequence is deterministic regardless of which worker finished first. That's the combination — DAG-aware dispatch for *speed*, topological merge for *safety* — that makes "10 agents in parallel" actually viable instead of a conflict tornado.
 - **Worktree Authority (Lease-Aware GC):** To prevent orphaned worktrees if the app crashes, we implemented a `WorktreeAuthority` that uses `fs4` advisory locks as cross-process liveness probes. It runs periodic background sweeps (15 min + jitter) to reap dead worktrees safely.
 - **Single-Attach Invariants:** We use kernel-level lockfiles (`.spur/sessions/<id>.lock`) to ensure you can't have two TUI windows sending prompts to the same brain session (split-brain).
-- **Embedded Issue Store:** Issue tracking links the BEADS SQLite engine directly Per-call latency dropped from ~50 ms (spawn + JSON roundtrip) to <1 ms. Cross-process correctness is a documented contract: N concurrent readers across any spur instances + one writer machine-wide, via OS flock on `.beads/.write.lock` plus SQLite WAL snapshot isolation, with jittered exponential backoff under contention. Multi-process integration tests pin the contract
+- **Embedded Issue Store:** Issue tracking links the BEADS SQLite engine directly — per-call latency dropped from ~50 ms (subprocess + JSON roundtrip) to <1 ms. Cross-process correctness is a documented contract: N concurrent readers across any number of spur instances + one writer machine-wide, via OS flock on `.beads/.write.lock` plus SQLite WAL snapshot isolation, with jittered exponential backoff under contention. Multi-process integration tests pin the contract.
 
-## 🚀 Getting Started
+## Getting started
 
-Spur operates locally in your repository, with issue tracking handled either by an embedded SQLite store
+Spur operates locally in your repository, with issue tracking handled either by an embedded SQLite store (no external CLI required) or GitHub's REST API.
 
 No signup required, run it directly in your repo via `npx`:
 
