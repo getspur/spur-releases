@@ -74,10 +74,11 @@ graph TD
 - **Worktree Authority (Lease-Aware GC):** To prevent orphaned worktrees if the app crashes, we implemented a `WorktreeAuthority` that uses `fs4` advisory locks as cross-process liveness probes. It runs periodic background sweeps (15 min + jitter) to reap dead worktrees safely.
 - **Single-Attach Invariants:** We use kernel-level lockfiles (`.spur/sessions/<id>.lock`) to ensure you can't have two TUI windows sending prompts to the same brain session (split-brain).
 - **Peer Mailbox:** We've built an (opt-in) at-least-once delivery message router that allows parallel worker agents to communicate with each other during execution, backed by an in-memory ledger and stranded-message reconciler.
+- **Embedded Issue Store (no CLI hops):** Issue tracking links the `beads_rust` SQLite engine directly — we retired the `br` subprocess shellout entirely. Per-call latency dropped from ~50 ms (spawn + JSON roundtrip) to <1 ms. Cross-process correctness is a documented contract: N concurrent readers across any spur instances + one writer machine-wide, via OS flock on `.beads/.write.lock` plus SQLite WAL snapshot isolation, with jittered exponential backoff under contention. Multi-process integration tests pin the contract; full design in [`docs/spur-pm-beads-crate-architecture.md`](https://github.com/getspur/spur-releases/blob/main/docs/spur-pm-beads-crate-architecture.md).
 
 ## 🚀 Getting Started
 
-Spur operates locally in your repository and integrates with local tools like `br` (beads) or GitHub for issue tracking.
+Spur operates locally in your repository, with issue tracking handled either by an embedded SQLite store (via the `beads_rust` crate — no external CLI required) or GitHub's REST API.
 
 No signup required, run it directly in your repo via `npx`:
 
