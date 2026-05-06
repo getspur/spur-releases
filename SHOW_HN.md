@@ -38,7 +38,7 @@ When you ask Spur to execute an Epic, the "Brain" orchestrator (e.g., Claude Cod
 
 ## 🧠 Under the Hood (Architecture)
 
-Spur isn't just a pretty UI wrapper; it's a heavy-duty orchestration engine built across 13 strict Rust crates (zero dependency cycles). We had to solve complex concurrency and state problems to make multi-agent orchestration safe.
+Spur isn't just a pretty UI wrapper; it's a heavy-duty orchestration engine . We had to solve complex concurrency and state problems to make multi-agent orchestration safe.
 
 ### Simplified System Flow
 
@@ -72,7 +72,7 @@ graph TD
 
 ### Architectural Highlights
 
-- **Pure Event Sourcing:** The TUI state (Lineage, Plan Inspector) is a pure projection of an NDJSON event stream (`EventFunnel`). Resuming a session is just a fast replay.
+- **ACP-Native Multi-Agent Surface:** Spur talks to every agent over the [Agent Client Protocol](https://agentclientprotocol.com) — Claude Code, Codex, Gemini, Kimi, opencode, Kiro all expose the same wire surface, so any of them can be slotted in as a *brain* (planner) or a *worker* (executor) inside the same plan. The agent registry, capability discovery, and permission model are agent-agnostic; adding a new ACP-speaking agent is a `.spur/config.toml` entry, not a code change. This is what makes "Claude Code plans, three Codex workers execute in parallel" a one-line configuration decision rather than an integration project.
 - **Worktree Authority (Lease-Aware GC):** To prevent orphaned worktrees if the app crashes, we implemented a `WorktreeAuthority` that uses `fs4` advisory locks as cross-process liveness probes. It runs periodic background sweeps (15 min + jitter) to reap dead worktrees safely.
 - **Single-Attach Invariants:** We use kernel-level lockfiles (`.spur/sessions/<id>.lock`) to ensure you can't have two TUI windows sending prompts to the same brain session (split-brain).
 - **Embedded Issue Store:** Issue tracking links the BEADS SQLite engine directly Per-call latency dropped from ~50 ms (spawn + JSON roundtrip) to <1 ms. Cross-process correctness is a documented contract: N concurrent readers across any spur instances + one writer machine-wide, via OS flock on `.beads/.write.lock` plus SQLite WAL snapshot isolation, with jittered exponential backoff under contention. Multi-process integration tests pin the contract
