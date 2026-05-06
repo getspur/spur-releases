@@ -109,6 +109,7 @@ Type an issue into the input bar, hit Enter, and watch the Brain draw up a plan 
 - [Session Management](https://github.com/getspur/spur-releases/blob/main/docs/02-session-management.md) — resuming, lineage, the event log
 - [Commands & Input](https://github.com/getspur/spur-releases/blob/main/docs/03-commands-and-input.md) — slash commands, prompt routing
 - [Issues & Planning](https://github.com/getspur/spur-releases/blob/main/docs/04-issues-and-planning.md) — Issue Browser, Plan Inspector, DAG execution
-- [Configuration](https://github.com/getspur/spur-releases/blob/main/docs/05-configuration.md) — `.spur/config.toml`, brains, fallbacks, permissions
+- [Configuration](https://github.com/getspur/spur-releases/blob/main/docs/05-configuration.md) — `.spur/config.toml`, brains, fallbacks
+- [Permissions & Bypass](https://github.com/getspur/spur-releases/blob/main/docs/07-permissions-and-bypass.md) — auto-approve levers, per-agent recipes, security implications
 
 We'd love for the HN community to tear this apart, try out the worktree isolation, and tell us where the UX or the Rust architecture can be improved. I'll be hanging out in the comments all day to answer deep architectural or product questions!
